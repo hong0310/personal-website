@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hong Wang — Ph.D. Student</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --text-light: #9b9b9b;
+      --accent: #2a5caa;
+      --accent-light: #e8eef7;
+      --border: #e8e8e4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .site-wrapper { max-width: 740px; margin: 0 auto; padding: 0 28px; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 740px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between; height: 52px;
+    }
+    .nav-name { font-family: var(--serif); font-size: 16px; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; letter-spacing: 0.03em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 60px;
+      display: grid; grid-template-columns: 1fr 148px; gap: 52px; align-items: start;
+    }
+    .hero-text h1 {
+      font-family: var(--serif); font-size: 40px; line-height: 1.15;
+      font-weight: 400; margin-bottom: 4px; letter-spacing: -0.01em;
+    }
+    .hero-subtitle {
+      color: var(--text-muted); font-size: 13.5px; margin-bottom: 22px; line-height: 1.6;
+    }
+    .hero-subtitle a { color: var(--accent); text-decoration: none; }
+    .hero-text p { font-size: 14.5px; line-height: 1.8; max-width: 500px; margin-bottom: 11px; color: var(--text); }
+    .hero-text p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .hero-text p a:hover { border-bottom-color: var(--accent); }
+    strong { font-weight: 500; }
+
+    .hero-photo {
+      width: 148px; height: 148px; border-radius: 6px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder { font-family: var(--serif); font-size: 54px; color: var(--accent); opacity: 0.3; font-style: italic; }
+
+    .interest-tags { display: flex; gap: 7px; flex-wrap: wrap; margin: 16px 0 20px; }
+    .tag { padding: 4px 11px; background: var(--accent-light); color: var(--accent); border-radius: 4px; font-size: 12.5px; }
+
+    .social-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .social-link {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 100px;
+      font-size: 12.5px; color: var(--text-muted); text-decoration: none; transition: all 0.2s;
+    }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .social-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* Sections */
+    section { padding: 48px 0; border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light); margin-bottom: 28px;
+    }
+
+    /* Publications */
+    .pub-item {
+      display: grid; grid-template-columns: 120px 1fr; gap: 20px;
+      align-items: start; padding: 22px 0; border-bottom: 1px solid var(--border);
+    }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-thumb {
+      width: 120px; height: 80px; border-radius: 5px; overflow: hidden;
+      background: var(--accent-light); border: 1px solid var(--border); flex-shrink: 0;
+    }
+    .pub-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pub-thumb-empty { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; opacity: 0.22; }
+    .pub-thumb-empty svg { width: 24px; height: 24px; }
+
+    .pub-venue-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-bottom: 5px;
+    }
+    .badge-journal  { background: #fef3c7; color: #92400e; }
+    .badge-conf     { background: #dbeafe; color: #1e40af; }
+    .badge-workshop { background: #f3e8ff; color: #6b21a8; }
+    .badge-demo     { background: #dcfce7; color: #166534; }
+    .badge-review   { background: #f1f5f9; color: #64748b; }
+    .badge-lbr      { background: #dbeafe; color: #1e40af; }
+
+    .pub-title { font-family: var(--serif); font-size: 15px; line-height: 1.4; font-weight: 400; margin-bottom: 5px; }
+    .pub-title a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .pub-title a:hover { color: var(--accent); }
+    .pub-authors { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px; }
+    .pub-authors .me { color: var(--text); font-weight: 500; }
+    .pub-venue { font-size: 12.5px; color: var(--text-light); font-style: italic; }
+
+    /* News (timeline) */
+    .news-list { display: flex; flex-direction: column; }
+    .news-item {
+      display: grid; grid-template-columns: 108px 1fr; gap: 24px;
+      padding: 13px 0; border-bottom: 1px solid var(--border); align-items: baseline;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-date { font-size: 12.5px; color: var(--text-light); line-height: 1.5; }
+    .news-text { font-size: 14px; color: var(--text); line-height: 1.65; }
+    .news-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .news-text a:hover { border-bottom-color: var(--accent); }
+
+    /* Teaching */
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .course-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 13px 15px; }
+    .course-code { font-size: 11px; letter-spacing: 0.07em; color: var(--text-light); text-transform: uppercase; margin-bottom: 3px; }
+    .course-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .course-term { font-size: 12.5px; color: var(--text-muted); }
+    .mentoring-note {
+      margin-top: 14px; padding: 12px 15px; background: var(--accent-light);
+      border-radius: 6px; border-left: 3px solid var(--accent);
+      font-size: 13.5px; color: var(--text-muted); line-height: 1.65;
+    }
+
+    /* Service */
+    .reviewer-list { display: flex; flex-direction: column; }
+    .reviewer-item {
+      display: grid; grid-template-columns: 108px 1fr; gap: 24px;
+      padding: 11px 0; border-bottom: 1px solid var(--border); align-items: baseline;
+    }
+    .reviewer-item:last-child { border-bottom: none; }
+    .reviewer-year { font-size: 12.5px; color: var(--text-light); }
+    .reviewer-venue { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+    /* Education */
+    .edu-list { display: flex; flex-direction: column; }
+    .edu-item {
+      display: grid; grid-template-columns: 108px 1fr; gap: 24px;
+      padding: 13px 0; border-bottom: 1px solid var(--border); align-items: start;
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-year { font-size: 12.5px; color: var(--text-light); padding-top: 2px; }
+    .edu-degree { font-size: 14.5px; font-weight: 500; color: var(--text); display: block; }
+    .edu-school { font-size: 13.5px; color: var(--text-muted); display: block; }
+    .edu-detail { font-size: 13px; color: var(--text-light); display: block; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 26px 0; text-align: center; color: var(--text-light); font-size: 13px; }
+    footer a { color: var(--text-light); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .hero { animation: fadeUp 0.5s ease both; }
+    section { animation: fadeUp 0.45s ease both; }
+
+    /* Responsive */
+    @media (max-width: 580px) {
+      .hero { grid-template-columns: 1fr; padding: 44px 0 36px; gap: 28px; }
+      .hero-photo { order: -1; width: 90px; height: 90px; }
+      .hero-text h1 { font-size: 30px; }
+      .pub-item { grid-template-columns: 1fr; }
+      .pub-thumb { width: 100%; height: 150px; }
+      .news-item, .reviewer-item, .edu-item { grid-template-columns: 1fr; gap: 3px; }
+      .news-date, .reviewer-year, .edu-year { color: var(--text-muted); }
+      .nav-links { gap: 16px; }
+      .course-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#about" class="nav-name">Hong Wang</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#service">Service</a></li>
+      <li><a href="#cv">CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="site-wrapper">
+
+  <!-- About -->
+  <div class="hero" id="about">
+    <div class="hero-text">
+      <h1>Hong Wang</h1>
+      <p class="hero-subtitle">
+        Ph.D. Student · Bellini College of AI, Cybersecurity &amp; Computing<br>
+        University of South Florida &nbsp;·&nbsp; <a href="https://therarelab.com/" target="_blank">RARE Lab</a>
+      </p>
+      <p>
+        I am a third-year Computer Science Ph.D. student advised by Professor
+        <a href="https://zhaohanphd.com/" target="_blank"><strong>Zhao Han</strong></a>.
+        Before USF, I received my B.S. in Information &amp; Computing Science from
+        Hohai University (2020) and my M.S. in Computer Science from Stony Brook University (2022).
+      </p>
+      <p>
+        My research lies at the intersection of <strong>robotics</strong> and <strong>augmented reality</strong>,
+        investigating how AR and projector-camera systems can enhance the transparency and
+        explainability of robotic systems to support more intuitive human–robot interaction.
+      </p>
+      <div class="interest-tags">
+        <span class="tag">Human-Robot Interaction</span>
+        <span class="tag">Augmented Reality</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Large Language Models</span>
+        <span class="tag">AI</span>
+      </div>
+      <div class="social-links">
+        <a href="mailto:hongw@usf.edu" class="social-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email
+        </a>
+        <a href="https://scholar.google.com/citations?user=k4EYGTwAAAAJ&hl=en" target="_blank" class="social-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+          Scholar
+        </a>
+        <a href="https://github.com/hong0310" target="_blank" class="social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/hongwang310/" target="_blank" class="social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="cv.pdf" class="social-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          CV
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/photo.jpg" alt="Hong Wang">
+      <!-- <span class="hero-photo-placeholder">H</span> -->
+    </div>
+  </div>
+
+  <!-- Publications -->
+  <section id="publications">
+    <p class="section-label">Publications</p>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/Indicating-Robot-Vision-Capabilities-with-Augmented-Reality.jpg?w=400&ssl=1" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-journal">Journal</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/soro26-indicating-robot-vision-capabilities-with-augmented-reality/" target="_blank">Indicating Robot Vision Capabilities with Augmented Reality</a></div>
+        <div class="pub-authors"><span class="me">Hong Wang</span>, Ridhima Phatak, James Ocampo, Zhao Han</div>
+        <div class="pub-venue">International Journal of Social Robotics, 2026</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/Evaluating-Dynamic-Surface-Compensation-for-Robots-with-Projected-AR-scaled.webp?w=400&ssl=1" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-lbr">LBR</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/hri26lbr-evaluating-dynamic-surface-compensation-for-robots-with-projected-ar/" target="_blank">Evaluating Dynamic Surface Compensation for Robots with Projected AR</a></div>
+        <div class="pub-authors"><span class="me">Hong Wang</span>, Ngoc Bao Dinh, Zhao Han</div>
+        <div class="pub-venue">HRI Companion '26 — Late-Breaking Report</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/bloom_inside_out.webp?w=400&ssl=1" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-demo">Demo</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/hri26demo-bloom-preview-a-low-cost-llm-powered-social-robot/" target="_blank">Bloom Preview: A Low-Cost LLM-Powered Social Robot</a></div>
+        <div class="pub-authors">Xiangfei Kong, Rex Gonzalez, …, <span class="me">Hong Wang</span>, Hongdao Meng, Zhao Han</div>
+        <div class="pub-venue">HRI '26 Interactivity</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities.webp?w=400" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-workshop">Workshop</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities/" target="_blank">Exploring Familiar Design Strategies to Explain Robot Vision Capabilities</a></div>
+        <div class="pub-authors"><span class="me">Hong Wang</span>, Maria Julia Vidal, Zhao Han</div>
+        <div class="pub-venue">X-HRI Workshop @ HRI 2025</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/anywhere-projected-ar-for-robot-communication_-a-mid-air-fog-screen-robot-system.webp?w=400" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-conf">Conference</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/hri25-anywhere-projected-ar-for-robot-communication-a-mid-air-fog-screen-robot-system/" target="_blank">Anywhere Projected AR for Robot Communication: A Mid-Air Fog Screen-Robot System</a></div>
+        <div class="pub-authors">Adrian Lozada, Uthman Tijani, Villa Keth, <span class="me">Hong Wang</span>, Zhao Han</div>
+        <div class="pub-venue">HRI '25 — ACM/IEEE International Conference on Human-Robot Interaction</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/03/to-understand-indicators-of-robots-vision-capabilities-1-2.webp?w=400" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-workshop">Workshop</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/vamhri24hong-to-understand-indicators-of-robots-vision-capabilities/" target="_blank">To Understand Indicators of Robots' Vision Capabilities</a></div>
+        <div class="pub-authors"><span class="me">Hong Wang</span>, Tam Do, Zhao Han</div>
+        <div class="pub-venue">VAM-HRI @ HRI 2024</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/designing-indicators-to-show-a-robots-physical-vision-capability-1.webp?w=400" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-conf">Poster</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/vr24-designing-indicators-to-show-a-robots-physical-vision-capability/" target="_blank">Designing Indicators to Show a Robot's Physical Vision Capability</a></div>
+        <div class="pub-authors"><span class="me">Hong Wang</span>, Tam Do, Zhao Han</div>
+        <div class="pub-venue">IEEE VR 2024 — IEEE Conference on Virtual Reality and 3D User Interfaces</div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/generalized-experiment-flow-1080p-1-1.webp?w=400" alt="" loading="lazy"></div>
+      <div>
+        <span class="pub-venue-badge badge-conf">Conference</span>
+        <div class="pub-title"><a href="https://therarelab.com/publications/hri24short-towards-reproducible-language-based-hri-experiments-open-sourcing-a-generalized-experiment-project/" target="_blank">Towards Reproducible Language-Based HRI Experiments: Open-Sourcing a Generalized Experiment Project</a></div>
+        <div class="pub-authors">Uthman Tijani, <span class="me">Hong Wang</span>, Zhao Han</div>
+        <div class="pub-venue">HRI '24 — ACM/IEEE International Conference on Human-Robot Interaction</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- News -->
+  <section id="news">
+    <p class="section-label">News</p>
+    <div class="news-list">
+
+      <div class="news-item">
+        <div class="news-date">Oct 2025</div>
+        <div class="news-text">RARE Lab research featured on <strong><a href="https://www.fox13news.com/news/usf-researchers-develop-ai-robot-tech-could-save-lives-emergencies" target="_blank">FOX 13 News</a></strong> — USF researchers develop AI robot tech that could save lives in emergencies.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Mar 2025</div>
+        <div class="news-text">Received the <strong>USF Engineering Alumni Society Conference Grant</strong> ($500).</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Jan–Apr 2025</div>
+        <div class="news-text">Completed <strong>UR2PhD Graduate Student Mentor Training</strong> — Computing Research Association.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Oct 2024</div>
+        <div class="news-text">Presented a live demo of Pepper robot &amp; HoloLens 2 at <strong>USF DevFest 2024</strong> to 30+ attendees.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Aug 2024</div>
+        <div class="news-text"><strong>Winner</strong> of the USF Voice AI Summer School Hackathon (Bridge2AI Voice Consortium).</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">May 2024</div>
+        <div class="news-text">Received the <strong>USF Engineering Alumni Society Conference Grant</strong> ($500).</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Apr 2024</div>
+        <div class="news-text">Attended the <strong>CRA-WP Grad Cohort Workshop for Women</strong>.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Mar 2024</div>
+        <div class="news-text">Showcased AR robot vision research at <strong>USF Innovation Fest</strong>.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Jan–Mar 2024</div>
+        <div class="news-text">Awarded the <strong>NSF I-Corps Site Subgrant</strong> ($3,000) as Entrepreneur Lead.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Jan 2024</div>
+        <div class="news-text">Accepted as a Student Volunteer at <strong>IEEE VR 2024</strong> and <strong>HRI 2024</strong>.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching">
+    <p class="section-label">Teaching</p>
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-code">COP 4931 / CIS 6930</div>
+        <div class="course-name">Robotics Process Automation</div>
+        <div class="course-term">Spring 2025</div>
+      </div>
+      <div class="course-card">
+        <div class="course-code">CIS 6930</div>
+        <div class="course-name">Augmented Reality</div>
+        <div class="course-term">Fall 2024</div>
+      </div>
+      <div class="course-card">
+        <div class="course-code">COP 4710</div>
+        <div class="course-name">Database Design</div>
+        <div class="course-term">Summer 2024</div>
+      </div>
+      <div class="course-card">
+        <div class="course-code">CEN 4020</div>
+        <div class="course-name">Software Engineering</div>
+        <div class="course-term">Spring 2024, Spring 2025</div>
+      </div>
+      <div class="course-card">
+        <div class="course-code">CIS 4250</div>
+        <div class="course-name">Ethical Issues in Computing</div>
+        <div class="course-term">Fall 2023</div>
+      </div>
+    </div>
+    <div class="mentoring-note">
+      <strong>Research Mentoring:</strong> Supervised 30+ undergraduate researchers in Python, Unity/MRTK, HoloLens 2 development, and user study design for HRI projects.
+    </div>
+  </section>
+
+  <!-- Service -->
+  <section id="service">
+    <p class="section-label">Service</p>
+
+    <p style="font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Reviewer</p>
+    <div class="reviewer-list" style="margin-bottom:28px;">
+      <div class="reviewer-item">
+        <div class="reviewer-year">2026</div>
+        <div class="reviewer-venue">IEEE International Conference on Robotics and Automation (ICRA)</div>
+      </div>
+      <div class="reviewer-item">
+        <div class="reviewer-year">2025, 2026</div>
+        <div class="reviewer-venue">ACM/IEEE Human-Robot Interaction (HRI) Conference</div>
+      </div>
+      <div class="reviewer-item">
+        <div class="reviewer-year">2025</div>
+        <div class="reviewer-venue">ACM Transactions on Human-Robot Interaction (THRI)</div>
+      </div>
+      <div class="reviewer-item">
+        <div class="reviewer-year">2024</div>
+        <div class="reviewer-venue">IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)</div>
+      </div>
+    </div>
+
+    <p style="font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Student Volunteer</p>
+    <div class="reviewer-list">
+      <div class="reviewer-item">
+        <div class="reviewer-year">2024</div>
+        <div class="reviewer-venue">ACM/IEEE Human-Robot Interaction (HRI) Conference</div>
+      </div>
+      <div class="reviewer-item">
+        <div class="reviewer-year">2024</div>
+        <div class="reviewer-venue">IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR)</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Education -->
+  <section>
+    <p class="section-label">Education</p>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-year">2023 – Present</div>
+        <div>
+          <span class="edu-degree">Ph.D. in Computer Science</span>
+          <span class="edu-school">University of South Florida · Tampa, FL</span>
+          <span class="edu-detail">Advisor: Prof. Zhao Han · RARE Lab</span>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2021 – 2022</div>
+        <div>
+          <span class="edu-degree">M.S. in Computer Science</span>
+          <span class="edu-school">Stony Brook University · Stony Brook, NY</span>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2016 – 2020</div>
+        <div>
+          <span class="edu-degree">B.S. in Information and Computing Science</span>
+          <span class="edu-school">Hohai University · Nanjing, Jiangsu, China</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <p class="section-label">Curriculum Vitae</p>
+    <a href="cv.pdf" class="social-link" style="display:inline-flex;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV (PDF)
+    </a>
+  </section>
+
+</div>
+
+<footer>
+  <div class="site-wrapper">
+    <p>© 2025 Hong Wang &nbsp;·&nbsp; Last updated April 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
