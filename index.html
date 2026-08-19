@@ -3,22 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fbf7f0" />
   <title>Hong Wang — Ph.D. Student</title>
+  <link rel="icon" href="assets/hong-logo.png" type="image/png" />
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme');
+      const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #fafaf8;
-      --surface: #ffffff;
-      --text: #1a1a1a;
-      --text-muted: #6b6b6b;
-      --text-light: #9b9b9b;
-      --accent: #2a5caa;
-      --accent-light: #e8eef7;
-      --border: #e8e8e4;
+      color-scheme: light;
+      --bg: #fbf7f0;
+      --surface: #fffdf9;
+      --text: #241b19;
+      --text-muted: #756762;
+      --text-light: #a3948e;
+      --accent: #b31d1d;
+      --accent-hover: #8f1515;
+      --accent-light: #f6dfd8;
+      --border: #e8ddd4;
+      --nav-bg: rgba(251,247,240,0.93);
+      --shadow: rgba(84, 34, 25, 0.11);
       --serif: 'DM Serif Display', Georgia, serif;
       --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #171313;
+      --surface: #211b1a;
+      --text: #f7eee8;
+      --text-muted: #c5b6ae;
+      --text-light: #93837c;
+      --accent: #ff766a;
+      --accent-hover: #ff9a91;
+      --accent-light: #3b2422;
+      --border: #3b302d;
+      --nav-bg: rgba(23,19,19,0.92);
+      --shadow: rgba(0, 0, 0, 0.35);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,28 +60,43 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .site-wrapper { max-width: 740px; margin: 0 auto; padding: 0 28px; }
+    .site-wrapper { max-width: 960px; margin: 0 auto; padding: 0 32px; }
 
     /* Nav */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(250,250,248,0.93);
+      background: var(--nav-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
-      max-width: 740px; margin: 0 auto; padding: 0 28px;
+      max-width: 960px; margin: 0 auto; padding: 0 32px;
       display: flex; align-items: center; justify-content: space-between; height: 52px;
     }
-    .nav-name { font-family: var(--serif); font-size: 16px; color: var(--text); text-decoration: none; }
+    .nav-name {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--serif); font-size: 16px; color: var(--text); text-decoration: none;
+    }
+    .nav-logo { width: 34px; height: 34px; display: block; transition: transform 0.25s ease; }
+    .nav-name:hover .nav-logo { transform: rotate(-7deg) scale(1.05); }
     .nav-links { display: flex; gap: 24px; list-style: none; }
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; letter-spacing: 0.03em; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
+    .theme-toggle {
+      width: 34px; height: 34px; display: grid; place-items: center; flex: none;
+      border: 1px solid var(--border); border-radius: 50%; background: var(--surface);
+      color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    .icon-sun { display: none; }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
 
     /* Hero */
     .hero {
       padding: 72px 0 60px;
-      display: grid; grid-template-columns: 1fr 148px; gap: 52px; align-items: start;
+      display: grid; grid-template-columns: 1fr 168px; gap: 64px; align-items: start;
     }
     .hero-text h1 {
       font-family: var(--serif); font-size: 40px; line-height: 1.15;
@@ -63,13 +106,13 @@
       color: var(--text-muted); font-size: 13.5px; margin-bottom: 22px; line-height: 1.6;
     }
     .hero-subtitle a { color: var(--accent); text-decoration: none; }
-    .hero-text p { font-size: 14.5px; line-height: 1.8; max-width: 500px; margin-bottom: 11px; color: var(--text); }
+    .hero-text p { font-size: 14.5px; line-height: 1.8; max-width: 650px; margin-bottom: 11px; color: var(--text); }
     .hero-text p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
     .hero-text p a:hover { border-bottom-color: var(--accent); }
     strong { font-weight: 500; }
 
     .hero-photo {
-      width: 148px; height: 148px; border-radius: 6px; overflow: hidden;
+      width: 168px; height: 168px; border-radius: 6px; overflow: hidden;
       border: 1px solid var(--border); background: var(--accent-light);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
@@ -88,6 +131,28 @@
     .social-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
     .social-link svg { width: 12px; height: 12px; flex-shrink: 0; }
 
+    /* Featured research */
+    .featured-research { padding-top: 42px; }
+    .research-video {
+      overflow: hidden; border: 1px solid var(--border); border-radius: 9px;
+      background: #111; box-shadow: 0 14px 34px var(--shadow);
+    }
+    .research-video video {
+      display: block; width: 100%; aspect-ratio: 16 / 9;
+      object-fit: contain; background: #111;
+    }
+    .research-caption { padding-top: 16px; }
+    .research-kicker {
+      display: block; margin-bottom: 5px; color: var(--accent);
+      font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .research-title {
+      font-family: var(--serif); font-size: 19px; font-weight: 400;
+      line-height: 1.35; margin-bottom: 5px;
+    }
+    .research-description { color: var(--text-muted); font-size: 13.5px; line-height: 1.65; }
+
     /* Sections */
     section { padding: 48px 0; border-top: 1px solid var(--border); }
     .section-label {
@@ -97,12 +162,12 @@
 
     /* Publications */
     .pub-item {
-      display: grid; grid-template-columns: 120px 1fr; gap: 20px;
+      display: grid; grid-template-columns: 220px 1fr; gap: 30px;
       align-items: start; padding: 22px 0; border-bottom: 1px solid var(--border);
     }
     .pub-item:last-child { border-bottom: none; }
     .pub-thumb {
-      width: 120px; height: 80px; border-radius: 5px; overflow: hidden;
+      width: 220px; height: 146px; border-radius: 7px; overflow: hidden;
       background: var(--accent-light); border: 1px solid var(--border); flex-shrink: 0;
     }
     .pub-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -120,12 +185,29 @@
     .badge-review   { background: #f1f5f9; color: #64748b; }
     .badge-lbr      { background: #dbeafe; color: #1e40af; }
 
-    .pub-title { font-family: var(--serif); font-size: 15px; line-height: 1.4; font-weight: 400; margin-bottom: 5px; }
+    .pub-title {
+      display: flex; align-items: flex-start; gap: 9px; font-family: var(--serif);
+      font-size: 16px; line-height: 1.4; font-weight: 400; margin-bottom: 5px;
+    }
+    .pub-icon {
+      width: 22px; height: 22px; flex: 0 0 22px; margin-top: 1px;
+      color: var(--accent); stroke: currentColor; fill: none;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+    }
     .pub-title a { color: var(--text); text-decoration: none; transition: color 0.2s; }
     .pub-title a:hover { color: var(--accent); }
     .pub-authors { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px; }
     .pub-authors .me { color: var(--text); font-weight: 500; }
     .pub-venue { font-size: 12.5px; color: var(--text-light); font-style: italic; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .pub-link {
+      display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px;
+      border: 1px solid var(--border); border-radius: 100px; background: var(--surface);
+      color: var(--text-muted); font-size: 11.5px; line-height: 1.5; text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .pub-link:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
+    .pub-link svg { width: 11px; height: 11px; flex: none; }
 
     /* News (timeline) */
     .news-list { display: flex; flex-direction: column; }
@@ -178,6 +260,14 @@
     footer a { color: var(--text-light); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
+    :root[data-theme="dark"] .badge-journal  { background: #49391c; color: #ffd782; }
+    :root[data-theme="dark"] .badge-conf,
+    :root[data-theme="dark"] .badge-lbr      { background: #24344a; color: #9fc7ff; }
+    :root[data-theme="dark"] .badge-workshop { background: #3d2947; color: #deb4f2; }
+    :root[data-theme="dark"] .badge-demo     { background: #203c2b; color: #9ce2b2; }
+    :root[data-theme="dark"] .hero-photo img,
+    :root[data-theme="dark"] .nav-logo { filter: saturate(.92) brightness(.95); }
+
     /* Animations */
     @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
     .hero { animation: fadeUp 0.5s ease both; }
@@ -185,6 +275,7 @@
 
     /* Responsive */
     @media (max-width: 580px) {
+      .site-wrapper, .nav-inner { padding-left: 24px; padding-right: 24px; }
       .hero { grid-template-columns: 1fr; padding: 44px 0 36px; gap: 28px; }
       .hero-photo { order: -1; width: 90px; height: 90px; }
       .hero-text h1 { font-size: 30px; }
@@ -194,6 +285,12 @@
       .news-date, .reviewer-year, .edu-year { color: var(--text-muted); }
       .nav-links { gap: 16px; }
       .course-grid { grid-template-columns: 1fr; }
+      .featured-research { padding-top: 36px; }
+      .research-title { font-size: 17px; }
+    }
+    @media (max-width: 760px) {
+      .nav-links li:nth-child(n+4) { display: none; }
+      .nav-links { gap: 15px; margin-left: auto; margin-right: 12px; }
     }
   </style>
 </head>
@@ -201,7 +298,10 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#about" class="nav-name">Hong Wang</a>
+    <a href="#about" class="nav-name" aria-label="Hong Wang — Home">
+      <img src="assets/hong-logo.png" alt="" class="nav-logo">
+      <span>Hong Wang</span>
+    </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#publications">Publications</a></li>
@@ -210,6 +310,10 @@
       <li><a href="#service">Service</a></li>
       <li><a href="#cv">CV</a></li>
     </ul>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch color theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -270,6 +374,22 @@
     </div>
   </div>
 
+  <!-- Featured Research Video -->
+  <section class="featured-research" aria-labelledby="featured-research-title">
+    <p class="section-label">Featured Research</p>
+    <div class="research-video">
+      <video controls playsinline preload="metadata" poster="assets/images/4-ar-designs-poster.png">
+        <source src="assets/videos/4-ar-designs.m4v" type="video/mp4">
+        Your browser does not support embedded video.
+      </video>
+    </div>
+    <div class="research-caption">
+      <span class="research-kicker">Journal Video · 2026</span>
+      <h2 class="research-title" id="featured-research-title">Indicating Robot Vision Capabilities with Augmented Reality</h2>
+      <p class="research-description">Four AR designs that communicate a robot's vision capabilities: Eye Socket, Near-Eye Blocks, Extended Blocks, and Blocks at Task.</p>
+    </div>
+  </section>
+
   <!-- Publications -->
   <section id="publications">
     <p class="section-label">Publications</p>
@@ -278,9 +398,18 @@
       <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/Indicating-Robot-Vision-Capabilities-with-Augmented-Reality.jpg?w=400&ssl=1" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-journal">Journal</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/soro26-indicating-robot-vision-capabilities-with-augmented-reality/" target="_blank">Indicating Robot Vision Capabilities with Augmented Reality</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3V1.5M4.8 5.2 3.7 4.1M19.2 5.2l1.1-1.1"/></svg>
+          <a href="https://therarelab.com/publications/soro26-indicating-robot-vision-capabilities-with-augmented-reality/" target="_blank">Indicating Robot Vision Capabilities with Augmented Reality</a>
+        </div>
         <div class="pub-authors"><span class="me">Hong Wang</span>, Ridhima Phatak, James Ocampo, Zhao Han</div>
         <div class="pub-venue">International Journal of Social Robotics, 2026</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/soro26-indicating-robot-vision-capabilities-with-augmented-reality/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/soro26.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://osf.io/5f79e/files/mb29z" target="_blank" rel="noopener">Video ▶</a>
+          <a class="pub-link" href="https://osf.io/5f79e/" target="_blank" rel="noopener">Data ↗</a>
+        </div>
       </div>
     </div>
 
@@ -288,9 +417,17 @@
       <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/Evaluating-Dynamic-Surface-Compensation-for-Robots-with-Projected-AR-scaled.webp?w=400&ssl=1" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-lbr">LBR</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/hri26lbr-evaluating-dynamic-surface-compensation-for-robots-with-projected-ar/" target="_blank">Evaluating Dynamic Surface Compensation for Robots with Projected AR</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 16 5-8 5 5 3-4 5 7"/><path d="M3 19h18M5 5h5M7.5 5v3"/><path d="m10 5 9 3" stroke-dasharray="2 2"/></svg>
+          <a href="https://therarelab.com/publications/hri26lbr-evaluating-dynamic-surface-compensation-for-robots-with-projected-ar/" target="_blank">Evaluating Dynamic Surface Compensation for Robots with Projected AR</a>
+        </div>
         <div class="pub-authors"><span class="me">Hong Wang</span>, Ngoc Bao Dinh, Zhao Han</div>
         <div class="pub-venue">HRI Companion '26 — Late-Breaking Report</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/hri26lbr-evaluating-dynamic-surface-compensation-for-robots-with-projected-ar/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri26lbr.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri26lbr-poster.pdf" target="_blank" rel="noopener">Poster ↗</a>
+        </div>
       </div>
     </div>
 
@@ -298,9 +435,17 @@
       <div class="pub-thumb"><img src="https://i0.wp.com/therarelab.com/wp-content/uploads/2026/01/bloom_inside_out.webp?w=400&ssl=1" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-demo">Demo</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/hri26demo-bloom-preview-a-low-cost-llm-powered-social-robot/" target="_blank">Bloom Preview: A Low-Cost LLM-Powered Social Robot</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="12" rx="4"/><circle cx="9.5" cy="13" r="1"/><circle cx="14.5" cy="13" r="1"/><path d="M9 16h6M12 7V4M9.5 4h5"/><path d="m19 8 2-2"/></svg>
+          <a href="https://therarelab.com/publications/hri26demo-bloom-preview-a-low-cost-llm-powered-social-robot/" target="_blank">Bloom Preview: A Low-Cost LLM-Powered Social Robot</a>
+        </div>
         <div class="pub-authors">Xiangfei Kong, Rex Gonzalez, …, <span class="me">Hong Wang</span>, Hongdao Meng, Zhao Han</div>
         <div class="pub-venue">HRI '26 Interactivity</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/hri26demo-bloom-preview-a-low-cost-llm-powered-social-robot/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri26interactivity.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://osf.io/5emns/files/yq756" target="_blank" rel="noopener">Videos ▶</a>
+        </div>
       </div>
     </div>
 
@@ -308,9 +453,17 @@
       <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities.webp?w=400" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-workshop">Workshop</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities/" target="_blank">Exploring Familiar Design Strategies to Explain Robot Vision Capabilities</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11h2l1-3h5l1 3h2l1-3h5l1 3"/><rect x="4.5" y="9" width="7.5" height="6" rx="2"/><rect x="12" y="9" width="7.5" height="6" rx="2"/><path d="M8 18v3M16 18v3"/></svg>
+          <a href="https://therarelab.com/publications/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities/" target="_blank">Exploring Familiar Design Strategies to Explain Robot Vision Capabilities</a>
+        </div>
         <div class="pub-authors"><span class="me">Hong Wang</span>, Maria Julia Vidal, Zhao Han</div>
         <div class="pub-venue">X-HRI Workshop @ HRI 2025</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/exploring-familiar-design-strategies-to-explain-robot-vision-capabilities/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/xhri25.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://files.therarelab.com/xhri25slides.pdf" target="_blank" rel="noopener">Slides ↗</a>
+        </div>
       </div>
     </div>
 
@@ -318,9 +471,19 @@
       <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/anywhere-projected-ar-for-robot-communication_-a-mid-air-fog-screen-robot-system.webp?w=400" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-conf">Conference</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/hri25-anywhere-projected-ar-for-robot-communication-a-mid-air-fog-screen-robot-system/" target="_blank">Anywhere Projected AR for Robot Communication: A Mid-Air Fog Screen-Robot System</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h5V9H3zM5.5 9V6"/><path d="m8 11 5-3v11"/><path d="M14 7c2 1 2 3 0 4s-2 3 0 4 2 3 0 4M18 6c2 1 2 3 0 4s-2 3 0 4 2 3 0 4"/></svg>
+          <a href="https://therarelab.com/publications/hri25-anywhere-projected-ar-for-robot-communication-a-mid-air-fog-screen-robot-system/" target="_blank">Anywhere Projected AR for Robot Communication: A Mid-Air Fog Screen-Robot System</a>
+        </div>
         <div class="pub-authors">Adrian Lozada, Uthman Tijani, Villa Keth, <span class="me">Hong Wang</span>, Zhao Han</div>
         <div class="pub-venue">HRI '25 — ACM/IEEE International Conference on Human-Robot Interaction</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/hri25-anywhere-projected-ar-for-robot-communication-a-mid-air-fog-screen-robot-system/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri25.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri25slides.pdf" target="_blank" rel="noopener">Slides ↗</a>
+          <a class="pub-link" href="https://github.com/TheRARELab/fog-screen-robot-system" target="_blank" rel="noopener">Code ↗</a>
+          <a class="pub-link" href="https://osf.io/b4efu/" target="_blank" rel="noopener">Videos ▶</a>
+        </div>
       </div>
     </div>
 
@@ -328,9 +491,18 @@
       <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/03/to-understand-indicators-of-robots-vision-capabilities-1-2.webp?w=400" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-workshop">Workshop</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/vamhri24hong-to-understand-indicators-of-robots-vision-capabilities/" target="_blank">To Understand Indicators of Robots' Vision Capabilities</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-4 9-4 9 4 9 4-3.5 4-9 4-9-4-9-4Z"/><circle cx="12" cy="12" r="2"/><path d="M4 5h4M16 5h4M4 19h4M16 19h4"/></svg>
+          <a href="https://therarelab.com/publications/vamhri24hong-to-understand-indicators-of-robots-vision-capabilities/" target="_blank">To Understand Indicators of Robots' Vision Capabilities</a>
+        </div>
         <div class="pub-authors"><span class="me">Hong Wang</span>, Tam Do, Zhao Han</div>
         <div class="pub-venue">VAM-HRI @ HRI 2024</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/vamhri24hong-to-understand-indicators-of-robots-vision-capabilities/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/vamhri24hongdohan.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://files.therarelab.com/vamhri24hongdohan-slides.pdf" target="_blank" rel="noopener">Slides ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/vamhri24hongdohan-poster.pdf" target="_blank" rel="noopener">Poster ↗</a>
+        </div>
       </div>
     </div>
 
@@ -338,9 +510,17 @@
       <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/designing-indicators-to-show-a-robots-physical-vision-capability-1.webp?w=400" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-conf">Poster</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/vr24-designing-indicators-to-show-a-robots-physical-vision-capability/" target="_blank">Designing Indicators to Show a Robot's Physical Vision Capability</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 5 7h14l2 2.5-2 7H5z"/><path d="M3 9.5h18M8 10v6M16 10v6M11 12h2"/><path d="M7 5V3M17 5V3"/></svg>
+          <a href="https://therarelab.com/publications/vr24-designing-indicators-to-show-a-robots-physical-vision-capability/" target="_blank">Designing Indicators to Show a Robot's Physical Vision Capability</a>
+        </div>
         <div class="pub-authors"><span class="me">Hong Wang</span>, Tam Do, Zhao Han</div>
         <div class="pub-venue">IEEE VR 2024 — IEEE Conference on Virtual Reality and 3D User Interfaces</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/vr24-designing-indicators-to-show-a-robots-physical-vision-capability/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/vr24.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://files.therarelab.com/vr24poster.pdf" target="_blank" rel="noopener">Poster ↗</a>
+        </div>
       </div>
     </div>
 
@@ -348,9 +528,17 @@
       <div class="pub-thumb"><img src="https://hongwang3.wordpress.com/wp-content/uploads/2024/02/generalized-experiment-flow-1080p-1-1.webp?w=400" alt="" loading="lazy"></div>
       <div>
         <span class="pub-venue-badge badge-conf">Conference</span>
-        <div class="pub-title"><a href="https://therarelab.com/publications/hri24short-towards-reproducible-language-based-hri-experiments-open-sourcing-a-generalized-experiment-project/" target="_blank">Towards Reproducible Language-Based HRI Experiments: Open-Sourcing a Generalized Experiment Project</a></div>
+        <div class="pub-title">
+          <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v11H9l-4 3z"/><path d="m9 9-2 2 2 2M15 9l2 2-2 2M13 8l-2 6"/></svg>
+          <a href="https://therarelab.com/publications/hri24short-towards-reproducible-language-based-hri-experiments-open-sourcing-a-generalized-experiment-project/" target="_blank">Towards Reproducible Language-Based HRI Experiments: Open-Sourcing a Generalized Experiment Project</a>
+        </div>
         <div class="pub-authors">Uthman Tijani, <span class="me">Hong Wang</span>, Zhao Han</div>
         <div class="pub-venue">HRI '24 — ACM/IEEE International Conference on Human-Robot Interaction</div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://therarelab.com/publications/hri24short-towards-reproducible-language-based-hri-experiments-open-sourcing-a-generalized-experiment-project/" target="_blank" rel="noopener">Webpage ↗</a>
+          <a class="pub-link" href="https://files.therarelab.com/hri24short.pdf" target="_blank" rel="noopener">PDF ↓</a>
+          <a class="pub-link" href="https://github.com/TheRARELab/langex" target="_blank" rel="noopener">Code ↗</a>
+        </div>
       </div>
     </div>
 
@@ -523,6 +711,28 @@
     <p>© 2025 Hong Wang &nbsp;·&nbsp; Last updated April 2026</p>
   </div>
 </footer>
+
+<script>
+  (() => {
+    const button = document.querySelector('.theme-toggle');
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+    const syncThemeUI = () => {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeMeta.setAttribute('content', dark ? '#171313' : '#fbf7f0');
+    };
+
+    button.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      syncThemeUI();
+    });
+
+    syncThemeUI();
+  })();
+</script>
 
 </body>
 </html>
